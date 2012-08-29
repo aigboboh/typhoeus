@@ -25,7 +25,11 @@ module Typhoeus
     end
 
     def self.hydra
-      Thread.current[:hydra] ||= new
+      if ENV['TYPHOEUS_THREAD_SAFE']
+        Thread.current[:hydra] ||= new
+      else
+        @hydra ||= new
+      end
     end
 
     def self.hydra=(val)
