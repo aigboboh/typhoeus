@@ -25,7 +25,7 @@ module Typhoeus
     end
 
     def self.hydra
-      @hydra ||= new
+      Thread.current[:hydra] ||= new
     end
 
     def self.hydra=(val)
