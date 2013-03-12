@@ -67,7 +67,11 @@ module Typhoeus
       # @deprecated This is only for convenience because so
       #   much external code relies on it.
       def hydra
-        @hydra ||= new
+        if ENV['TYPHOEUS_THREAD_SAFE']
+          Thread.current[:hydra] ||= new
+        else
+          @hydra ||= new
+        end
       end
     end
 
